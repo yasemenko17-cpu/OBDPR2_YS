@@ -19,8 +19,22 @@ def F(text=""):
     return result
 
 
-ATTRS = S("")        # ЗАПОВНІТЬ: усі стовпці таблиці вашого набору
-FDS = F("")          # ЗАПОВНІТЬ: функціональні залежності предметної області
-KEYS = set()         # ЗАПОВНІТЬ: множина ключів-кандидатів, кожен ключ - frozenset, наприклад {S("a b")}
-NORMAL_FORM = ""     # ЗАПОВНІТЬ: "1NF", "2NF", "3NF" або "BCNF"
-PARTS = []           # ЗАПОВНІТЬ: декомпозиція у 3NF: список відношень, кожне - frozenset
+ATTRS = S("exam_date grade student_id student_name subject_code subject_title")
+
+FDS = F("""
+    student_id -> student_name;
+    subject_code -> subject_title;
+    student_id subject_code -> exam_date grade
+""")
+
+KEYS = {
+    S("student_id subject_code")
+}
+
+NORMAL_FORM = "3NF"
+
+PARTS = [
+    S("student_id student_name"),
+    S("subject_code subject_title"),
+    S("student_id subject_code exam_date grade")
+]
